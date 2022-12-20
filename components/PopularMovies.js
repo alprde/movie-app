@@ -1,8 +1,6 @@
 import React from 'react'
 
 const PopularMovies = ({ popularMovies }) => {
-  console.log(popularMovies)
-
   return (
     <div className="mt-10">
       <span className="font-semibold text-gray-700 dark:text-white">

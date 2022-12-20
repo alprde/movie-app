@@ -387,12 +387,12 @@ export default function Home({ popularMovies }) {
   )
 }
 
-export const getStaticProps = async () => {
-  const popularMovies = await getPopularMovies()
-
-  return {
-    props: {
-      popularMovies
-    }
-  }
-}
+// export const getStaticProps = async () => {
+//   const popularMovies = await getPopularMovies()
+//
+//   return {
+//     props: {
+//       popularMovies
+//     }
+//   }
+// }
