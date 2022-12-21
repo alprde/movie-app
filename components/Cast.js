@@ -1,19 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {getMovieCredits} from "../functions/getMovies";
 
-const Cast = ({id}) => {
-    const [cast, setCast] = useState([]);
-
-    useEffect(() => {
-        const getCredits = async (id) => {
-            const credits = await getMovieCredits(id)
-
-            setCast(credits.cast.slice(0, 4))
-        }
-
-        getCredits(id)
-    }, [])
-
+const Cast = ({credits}) => {
     return (
         <section className="mt-9">
             <div className="flex items-center justify-between">
@@ -40,7 +28,7 @@ const Cast = ({id}) => {
 
             <div className="mt-4 grid grid-cols-2  sm:grid-cols-4 gap-x-5 gap-y-5">
                 {
-                    cast.map(cast => (
+                    credits.cast.slice(0, 4).map(cast => (
                         <div className="relative rounded-xl overflow-hidden" key={cast.id}>
                           <img
                               src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_URL}/w276_and_h350_face/${cast.profile_path}`}

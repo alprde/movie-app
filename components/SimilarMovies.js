@@ -1,19 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {getMovieCredits, getSimilarMovies} from '../functions/getMovies'
 
-const SimilarMovies = ({ id }) => {
-  const [similar, setSimilar] = useState([])
-
-  useEffect(() => {
-    const getSimilar = async (id) => {
-      const similarMovies = await getSimilarMovies(id)
-
-      setSimilar(similarMovies.results.slice(0, 3))
-    }
-
-    getSimilar(id)
-  }, [])
-
+const SimilarMovies = ({ similar }) => {
   return (
       <section className="mt-9">
         <div className="flex items-center justify-between">
@@ -39,8 +27,8 @@ const SimilarMovies = ({ id }) => {
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5 ">
-          {similar.map((movie) => (
-              <div className="flex flex-col rounded-xl overflow-hidden aspect-square border dark:border-zinc-600">
+          {similar.results.slice(0, 3).map((movie) => (
+              <div className="flex flex-col rounded-xl overflow-hidden aspect-square border dark:border-zinc-600" key={movie.id}>
                 <img
                     src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_URL}/w500_and_h282_face/${movie.backdrop_path}`}
                     className=" h-4/5 object-cover w-full  "

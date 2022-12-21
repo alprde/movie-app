@@ -1,11 +1,11 @@
 import React from 'react'
-import {getMovie, getMovieCredits, getMovies} from '../../functions/getMovies'
+import {getMovie, getMovieCredits, getMovies, getSimilarMovies} from '../../functions/getMovies'
 import slugify from 'slugify'
 import Layout from '../../components/Layout'
 import Cast from "../../components/Cast";
 import SimilarMovies from "../../components/SimilarMovies";
 
-const MovieDetail = ({ movie }) => {
+const MovieDetail = ({ movie, credits, similar }) => {
   return (
     <Layout title={movie.title} description={movie.overview}>
       <section>
@@ -44,7 +44,7 @@ const MovieDetail = ({ movie }) => {
             <div className="text-xs text-gray-200 mt-2">
               {
                 movie.genres.map((genre, i, row) => (
-                    <a href="#" className="">
+                    <a href="#" className="" key={i}>
                       {genre.name}
                       {
                         (i+1 !== row.length) ? ', ' : null
@@ -82,9 +82,9 @@ const MovieDetail = ({ movie }) => {
         </div>
       </section>
 
-      <Cast id={movie.id}/>
+      <Cast credits={credits}/>
 
-      <SimilarMovies id={movie.id}/>
+      <SimilarMovies similar={similar}/>
     </Layout>
   )
 }
@@ -110,11 +110,17 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
   const id = params.slug.split('-').slice(-1)[0]
-  const movie = await getMovie(id)
+  const movie = getMovie(id)
+  const credits = getMovieCredits(id)
+  const similar = getSimilarMovies(id)
+
+  const responses = await Promise.all([movie, credits, similar])
 
   return {
     props: {
-      movie,
+      movie: responses[0],
+      credits: responses[1],
+      similar: responses[2],
     }
   }
 }
