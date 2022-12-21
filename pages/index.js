@@ -1,22 +1,9 @@
 import Layout from '../components/Layout'
-import { getPopularMovies } from '../functions/getPopularMovies'
 
 export default function Home({ popularMovies }) {
   return (
-    <Layout title={'Movie App'} description={'My Movie App'}>
+    <Layout title={'Movies'} description={'Movie List'}>
       <section>
-        <nav className="flex space-x-6 text-gray-400 font-medium">
-          <a href="#" className="hover:text-gray-700 dark:hover:text-white">
-            TV Series
-          </a>
-          <a href="#" className="text-gray-700 dark:text-white font-semibold">
-            Movies
-          </a>
-          <a href="#" className="hover:text-gray-700 dark:hover:text-white ">
-            Animes
-          </a>
-        </nav>
-
         <div
           className="flex flex-col justify-between mt-4 bg-black/10 bg-blend-multiply rounded-3xl h-80 overflow-hidden bg-cover bg-center px-7 pt-4 pb-6 text-white"
           style={{ backgroundImage: `url('images/inception.jpg')` }}

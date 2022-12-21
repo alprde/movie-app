@@ -3,8 +3,11 @@ import React from 'react'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import Rightbar from './Rightbar'
+import Navigation from './Navigation'
 
 const Layout = ({ title, description, children }) => {
+  title = `Movie App - ${title}`;
+
   return (
     <>
       <Head>
@@ -23,6 +26,8 @@ const Layout = ({ title, description, children }) => {
 
           <main className="flex-1 py-10  px-5 sm:px-10">
             <Header />
+
+            <Navigation />
 
             {children}
           </main>
