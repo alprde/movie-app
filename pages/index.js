@@ -1,43 +1,50 @@
 import Layout from '../components/Layout'
 import {getMovies} from "../functions/getMovies";
 import MovieCard from "../components/MovieCard";
+import slugify from "slugify";
+import Link from "next/link";
 
 export default function Home({ movies }) {
+  const firstMovie = movies.results[0];
+
   return (
     <Layout title={'Movies'} description={'Movie List'}>
       <section>
         <div
           className="flex flex-col justify-between mt-4 bg-black/10 bg-blend-multiply rounded-3xl h-80 overflow-hidden bg-cover bg-center px-7 pt-4 pb-6 text-white"
-          style={{ backgroundImage: `url('images/inception.jpg')` }}
+          style={{ backgroundImage: `url('${process.env.NEXT_PUBLIC_TMDB_IMAGE_URL}/w1920_and_h600_face${firstMovie.poster_path}')` }}
         >
           <div className="flex -space-x-1 items-center ">
-            <img
-              className="rounded-full w-7 h-7 shadow-lg border border-white"
-              src="https://api.lorem.space/image/face?w=32&amp;h=32&amp;hash=zsrj8csk"
-              alt=""
-              srcSet=""
-            />
-            <img
-              className="rounded-full w-7 h-7 shadow-lg border border-white"
-              src="https://api.lorem.space/image/face?w=32&amp;h=32&amp;hash=zsrj8cck"
-              alt=""
-              srcSet=""
-            />
-            <img
-              className="rounded-full w-7 h-7 shadow-lg border border-white"
-              src="https://api.lorem.space/image/face?w=32&amp;h=32&amp;hash=zsfj8cck"
-              alt=""
-              srcSet=""
-            />
-            <span className="pl-4 text-xs drop-shadow-lg">
-              +8 friends are watching
-            </span>
+            {/*<img*/}
+            {/*  className="rounded-full w-7 h-7 shadow-lg border border-white"*/}
+            {/*  src="https://api.lorem.space/image/face?w=32&amp;h=32&amp;hash=zsrj8csk"*/}
+            {/*  alt=""*/}
+            {/*  srcSet=""*/}
+            {/*/>*/}
+            {/*<img*/}
+            {/*  className="rounded-full w-7 h-7 shadow-lg border border-white"*/}
+            {/*  src="https://api.lorem.space/image/face?w=32&amp;h=32&amp;hash=zsrj8cck"*/}
+            {/*  alt=""*/}
+            {/*  srcSet=""*/}
+            {/*/>*/}
+            {/*<img*/}
+            {/*  className="rounded-full w-7 h-7 shadow-lg border border-white"*/}
+            {/*  src="https://api.lorem.space/image/face?w=32&amp;h=32&amp;hash=zsfj8cck"*/}
+            {/*  alt=""*/}
+            {/*  srcSet=""*/}
+            {/*/>*/}
+            {/*<span className="pl-4 text-xs drop-shadow-lg">*/}
+            {/*  +8 friends are watching*/}
+            {/*</span>*/}
           </div>
 
           <div className="bg-gradient-to-r from-black/30 to-transparent -mx-7 -mb-6 px-7 pb-6 pt-2">
-            <span className="uppercase text-3xl font-semibold drop-shadow-lg ">
-              Inception
-            </span>
+            <Link href={`/movies/${slugify(firstMovie.title + ' ' + firstMovie.id, {
+              strict: true,
+              lower: true
+            })}`} className="uppercase text-3xl font-semibold drop-shadow-lg ">
+              {firstMovie.title}
+            </Link>
             <div className="text-xs text-gray-200 mt-2">
               <a href="#" className="">
                 Action
@@ -105,7 +112,7 @@ export default function Home({ movies }) {
 
         <div className="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5 ">
           {
-            movies.results.map(movie => (
+            movies.results.slice(1, -1).map(movie => (
                 <MovieCard movie={movie} key={movie.id}/>
             ))
           }
