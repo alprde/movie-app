@@ -1,11 +1,11 @@
 import React from 'react'
-import {getMovie, getMovieCredits, getMovies, getSimilarMovies} from '../../functions/getMovies'
+import {getMovie, getMovieCredits, getMovies} from '../../functions/getMovies'
 import slugify from 'slugify'
 import Layout from '../../components/Layout'
 import Cast from "../../components/Cast";
 import SimilarMovies from "../../components/SimilarMovies";
 
-const MovieDetail = ({ movie, credits, similar }) => {
+const MovieDetail = ({ movie }) => {
   return (
     <Layout title={movie.title} description={movie.overview}>
       <section>
@@ -82,9 +82,9 @@ const MovieDetail = ({ movie, credits, similar }) => {
         </div>
       </section>
 
-      <Cast credits={credits}/>
+      <Cast id={movie.id}/>
 
-      <SimilarMovies similar={similar}/>
+      <SimilarMovies id={movie.id}/>
     </Layout>
   )
 }
@@ -110,17 +110,11 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
   const id = params.slug.split('-').slice(-1)[0]
-  const movie = getMovie(id)
-  const credits = getMovieCredits(id)
-  const similar = getSimilarMovies(id)
-
-  const responses = await Promise.all([movie, credits, similar])
+  const movie = await getMovie(id)
 
   return {
     props: {
-      movie: responses[0],
-      credits: responses[1],
-      similar: responses[2],
+      movie,
     }
   }
 }

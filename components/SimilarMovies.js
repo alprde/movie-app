@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import {getMovieCredits, getSimilarMovies} from '../functions/getMovies'
+import {useRouter} from "next/router";
 
-const SimilarMovies = ({ similar }) => {
+const SimilarMovies = ({ id }) => {
+  const [similar, setSimilar] = useState([])
+  const dynamicRoute = useRouter().asPath;
+
+  useEffect(() => {
+    const getSimilar = async (id) => {
+      const similarMovies = await getSimilarMovies(id)
+
+      setSimilar(similarMovies.results.slice(0, 3))
+    }
+
+    getSimilar(id)
+  }, [dynamicRoute])
+
   return (
       <section className="mt-9">
         <div className="flex items-center justify-between">
@@ -27,7 +41,7 @@ const SimilarMovies = ({ similar }) => {
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5 ">
-          {similar.results.slice(0, 3).map((movie) => (
+          {similar.map((movie) => (
               <div className="flex flex-col rounded-xl overflow-hidden aspect-square border dark:border-zinc-600" key={movie.id}>
                 <img
                     src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_URL}/w500_and_h282_face/${movie.backdrop_path}`}
