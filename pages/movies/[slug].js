@@ -89,26 +89,37 @@ const MovieDetail = ({ movie }) => {
   )
 }
 
-export const getStaticPaths = async () => {
-  const movies = await getMovies()
-  const paths = movies.results.map((movie) => {
-    return {
-      params: {
-        slug: `${slugify(movie.title + ' ' + movie.id, {
-          strict: true,
-          lower: true
-        })}`
-      }
-    }
-  })
+// export const getStaticPaths = async () => {
+//   const movies = await getMovies()
+//   const paths = movies.results.map((movie) => {
+//     return {
+//       params: {
+//         slug: `${slugify(movie.title + ' ' + movie.id, {
+//           strict: true,
+//           lower: true
+//         })}`
+//       }
+//     }
+//   })
+//
+//   return {
+//     paths,
+//     fallback: false
+//   }
+// }
+//
+// export const getStaticProps = async ({ params }) => {
+//   const id = params.slug.split('-').slice(-1)[0]
+//   const movie = await getMovie(id)
+//
+//   return {
+//     props: {
+//       movie,
+//     }
+//   }
+// }
 
-  return {
-    paths,
-    fallback: false
-  }
-}
-
-export const getStaticProps = async ({ params }) => {
+export const getServerSideProps = async ({params}) => {
   const id = params.slug.split('-').slice(-1)[0]
   const movie = await getMovie(id)
 
