@@ -1,10 +1,11 @@
 import React from 'react'
+import Link from "next/link";
 
 const Sidebar = () => {
   return (
     <>
       <aside className=" w-1/6 py-10 pl-10  min-w-min  border-r border-gray-300 dark:border-zinc-700  hidden md:block ">
-        <div className=" font-bold text-lg flex items-center gap-x-3">
+        <Link href={'/'} className=" font-bold text-lg flex items-center gap-x-3">
           <svg
             className="h-8 w-8 fill-red-600"
             xmlns="http://www.w3.org/2000/svg"
@@ -15,7 +16,7 @@ const Sidebar = () => {
           <div className="tracking-wide dark:text-white">
             MMovie<span className="text-red-600">.</span>
           </div>
-        </div>
+        </Link>
 
         {/*Menu*/}
         <div className="mt-12 flex flex-col gap-y-4 text-gray-500 fill-gray-500 text-sm">

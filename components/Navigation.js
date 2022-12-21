@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from "next/link";
 
 const Navigation = () => {
   return (
@@ -7,9 +8,9 @@ const Navigation = () => {
         <a href="#" className="hover:text-gray-700 dark:hover:text-white">
           TV Series
         </a>
-        <a href="#" className="text-gray-700 dark:text-white font-semibold">
+        <Link href="/" className="text-gray-700 dark:text-white font-semibold">
           Movies
-        </a>
+        </Link>
         <a href="#" className="hover:text-gray-700 dark:hover:text-white ">
           Animes
         </a>
