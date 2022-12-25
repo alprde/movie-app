@@ -3,9 +3,21 @@ import {getMovies} from "../functions/getMovies";
 import MovieCard from "../components/MovieCard";
 import slugify from "slugify";
 import Link from "next/link";
+import ReactPaginate from "react-paginate";
+import {useState} from "react";
+import Pagination from "../components/Pagination";
 
-export default function Home({ movies }) {
+export default function Home(props) {
+  const [movies, setMovies] = useState(props.movies);
   const firstMovie = movies.results[0];
+
+  const handlePageClick = async (data) => {
+    let currentPage = data.selected + 1;
+
+    const response = await getMovies(currentPage);
+
+    setMovies(response)
+  };
 
   return (
     <Layout title={'Movies'} description={'Movie List'}>
@@ -117,6 +129,12 @@ export default function Home({ movies }) {
             ))
           }
         </div>
+      </section>
+      <section>
+        <Pagination
+          pageCount={movies.total_pages}
+          handlePageClick={handlePageClick}
+        />
       </section>
     </Layout>
   )
