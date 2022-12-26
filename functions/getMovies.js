@@ -10,14 +10,14 @@ const axiosOptions = {
   }
 }
 
-export const getMovies = async (page = 1) => {
-  return (
-    await axios.get(`${baseURL}/discover/movie?api_key=${apiKey}&page=${page}`, {
-      headers: {
-        'Accept-Encoding': '*'
-      }
+export const getMovies = (page = 1) => {
+  const data = fetch(`${baseURL}/discover/movie?api_key=${apiKey}&page=${page}`)
+    .then((r) => r.json())
+    .then((data) => {
+      return data
     })
-  ).data
+
+  return data
 }
 
 export const getPopularMovies = async () => {
