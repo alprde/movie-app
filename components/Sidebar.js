@@ -1,9 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
-import { useTheme } from 'next-themes'
+import dynamic from "next/dynamic";
 
 const Sidebar = () => {
-  const { theme, setTheme } = useTheme()
+  const ThemeButton = dynamic(
+      (() => import('./ThemeButton').then((ThemeButton) => ThemeButton)),
+      { ssr: false }
+);
 
   return (
     <>
@@ -182,14 +185,9 @@ const Sidebar = () => {
             </svg>
             <span>Logout</span>
           </a>
-          <a className="flex items-center space-x-2 py-1 mt-4" href="javascript:void(0);">
-            <button
-                className="px-5 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-center font-medium block text-white"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            >
-              {theme === 'dark' ? 'Light' : 'Dark'} Theme
-            </button>
-          </a>
+          <div className="flex items-center space-x-2 py-1 mt-4">
+            <ThemeButton/>
+          </div>
         </div>
         {/*/Menu*/}
       </aside>
