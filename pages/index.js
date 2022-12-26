@@ -1,30 +1,38 @@
 import Layout from '../components/Layout'
-import {getMovies} from "../functions/getMovies";
-import MovieCard from "../components/MovieCard";
-import slugify from "slugify";
-import Link from "next/link";
-import ReactPaginate from "react-paginate";
-import {useState} from "react";
-import Pagination from "../components/Pagination";
+import { getMovies } from '../functions/getMovies'
+import MovieCard from '../components/MovieCard'
+import slugify from 'slugify'
+import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Home(props) {
-  const [movies, setMovies] = useState(props.movies);
-  const firstMovie = movies.results[0];
+  const [movies, setMovies] = useState(props.movies)
+  const firstMovie = movies.results[0]
+  const [loadMoreStatus, setLoadMoreStatus] = useState(false)
 
-  const handlePageClick = async (data) => {
-    let currentPage = data.selected + 1;
+  const loadMore = async () => {
+    const newPage = movies.page + 1
 
-    const response = await getMovies(currentPage);
+    const response = await getMovies(newPage)
+
+    const newMovies = [...movies.results, ...response.results]
+
+    response.page = newPage
+    response.results = newMovies
 
     setMovies(response)
-  };
+
+    setLoadMoreStatus(false)
+  }
 
   return (
     <Layout title={'Movies'} description={'Movie List'}>
       <section>
         <div
           className="flex flex-col justify-between mt-4 bg-black/10 bg-blend-multiply rounded-3xl h-80 overflow-hidden bg-cover bg-center px-7 pt-4 pb-6 text-white"
-          style={{ backgroundImage: `url('${process.env.NEXT_PUBLIC_TMDB_IMAGE_URL}/w1920_and_h600_face${firstMovie.poster_path}')` }}
+          style={{
+            backgroundImage: `url('${process.env.NEXT_PUBLIC_TMDB_IMAGE_URL}/w1920_and_h600_face${firstMovie.poster_path}')`
+          }}
         >
           <div className="flex -space-x-1 items-center ">
             {/*<img*/}
@@ -51,10 +59,13 @@ export default function Home(props) {
           </div>
 
           <div className="bg-gradient-to-r from-black/30 to-transparent -mx-7 -mb-6 px-7 pb-6 pt-2">
-            <Link href={`/movies/${slugify(firstMovie.title + ' ' + firstMovie.id, {
-              strict: true,
-              lower: true
-            })}`} className="uppercase text-3xl font-semibold drop-shadow-lg ">
+            <Link
+              href={`/movies/${slugify(firstMovie.title + ' ' + firstMovie.id, {
+                strict: true,
+                lower: true
+              })}`}
+              className="uppercase text-3xl font-semibold drop-shadow-lg "
+            >
               {firstMovie.title}
             </Link>
             <div className="text-xs text-gray-200 mt-2">
@@ -123,18 +134,20 @@ export default function Home(props) {
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5 ">
-          {
-            movies.results.slice(1, -1).map(movie => (
-                <MovieCard movie={movie} key={movie.id}/>
-            ))
-          }
+          {movies.results.slice(1, -1).map((movie) => (
+            <MovieCard movie={movie} key={movie.id} />
+          ))}
         </div>
       </section>
       <section>
-        <Pagination
-          pageCount={movies.total_pages}
-          handlePageClick={handlePageClick}
-        />
+        {loadMoreStatus === false && (
+          <button
+            className="w-full bg-red-600 text-white py-3 rounded hover:bg-red-500"
+            onClick={() => {setLoadMoreStatus(true); loadMore()}}
+          >
+            Load more
+          </button>
+        )}
       </section>
     </Layout>
   )
