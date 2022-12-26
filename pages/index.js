@@ -142,7 +142,7 @@ export default function Home(props) {
       <section>
         {loadMoreStatus === false && (
           <button
-            className="w-full bg-red-600 text-white py-3 rounded hover:bg-red-500"
+            className="px-5 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-center font-medium block text-white w-full my-5"
             onClick={() => {setLoadMoreStatus(true); loadMore()}}
           >
             Load more

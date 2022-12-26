@@ -1,11 +1,17 @@
 import React from 'react'
-import Link from "next/link";
+import Link from 'next/link'
+import { useTheme } from 'next-themes'
 
 const Sidebar = () => {
+  const { theme, setTheme } = useTheme()
+
   return (
     <>
       <aside className=" w-1/6 py-10 pl-10  min-w-min  border-r border-gray-300 dark:border-zinc-700  hidden md:block ">
-        <Link href={'/'} className=" font-bold text-lg flex items-center gap-x-3">
+        <Link
+          href={'/'}
+          className=" font-bold text-lg flex items-center gap-x-3"
+        >
           <svg
             className="h-8 w-8 fill-red-600"
             xmlns="http://www.w3.org/2000/svg"
@@ -176,22 +182,13 @@ const Sidebar = () => {
             </svg>
             <span>Logout</span>
           </a>
-          <a className=" flex items-center space-x-2 py-1 mt-4" href="#">
-            <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-              <input
-                type="checkbox"
-                name="toggle"
-                id="toggle"
-                className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-gray-300 appearance-none cursor-pointer"
-              />
-              <label
-                htmlFor="toggle"
-                className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-              ></label>
-            </div>
-            <label htmlFor="toggle" className="">
-              Dark Theme
-            </label>
+          <a className="flex items-center space-x-2 py-1 mt-4" href="javascript:void(0);">
+            <button
+                className="px-5 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-center font-medium block text-white"
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            >
+              {theme === 'dark' ? 'Light' : 'Dark'} Theme
+            </button>
           </a>
         </div>
         {/*/Menu*/}
