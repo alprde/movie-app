@@ -1,7 +1,6 @@
 import Layout from '../components/Layout'
 import { useState } from 'react'
 import { getMovies } from '../functions/getMovies'
-import MovieCard from '../components/MovieCard'
 import Banner from "../components/Banner";
 import MovieList from "../components/MovieList";
 
@@ -27,7 +26,7 @@ export default function Home(props) {
   return (
     <Layout title={'Movies'} description={'Movie List'}>
       <section>
-        <Banner movie={movies.results[0]}/>
+        <Banner movieID={movies.results[0].id}/>
       </section>
 
       <section className="mt-9">
