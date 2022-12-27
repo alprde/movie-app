@@ -8,7 +8,7 @@ const MovieCard = ({ movie, pagePrefix }) => {
   return (
     <>
       <div
-        className="flex flex-col rounded-xl overflow-hidden aspect-square border dark:border-zinc-600"
+        className="flex flex-col rounded-xl overflow-hidden aspect-auto border dark:border-zinc-600"
         key={movie.id}
       >
         <img
