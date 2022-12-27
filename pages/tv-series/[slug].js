@@ -5,9 +5,9 @@ import Cast from '../../components/Cast'
 import SimilarMovies from '../../components/SimilarMovies'
 import Banner from '../../components/Banner'
 
-const MovieDetail = ({ movie }) => {
+const MovieDetail = ({ movie, movieName }) => {
   return (
-    <Layout title={movie.title} description={movie.overview}>
+    <Layout title={movieName} description={movie.overview}>
       <section>
         <Banner movieID={movie.id} type={'tv'} pagePrefix={'tv-series'} />
       </section>
@@ -52,10 +52,12 @@ const MovieDetail = ({ movie }) => {
 export const getServerSideProps = async ({ params }) => {
   const id = params.slug.split('-').slice(-1)[0]
   const movie = await getMovie(id, 'tv')
+  const movieName = 'title' in movie ? movie.title : movie.name
 
   return {
     props: {
-      movie
+      movie,
+      movieName
     }
   }
 }

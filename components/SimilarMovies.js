@@ -3,7 +3,7 @@ import { getMovieCredits, getSimilarMovies } from '../functions/getMovies'
 import { useRouter } from 'next/router'
 import slugify from 'slugify'
 import Link from 'next/link'
-import MovieCard from "./MovieCard";
+import MovieCard from './MovieCard'
 
 const SimilarMovies = ({ id, type, pagePrefix }) => {
   const [similar, setSimilar] = useState([])
@@ -45,7 +45,7 @@ const SimilarMovies = ({ id, type, pagePrefix }) => {
 
       <div className="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5 ">
         {similar.map((movie) => (
-          <MovieCard movie={movie} key={movie.id}/>
+          <MovieCard movie={movie} key={movie.id} pagePrefix={pagePrefix} />
         ))}
       </div>
     </section>
