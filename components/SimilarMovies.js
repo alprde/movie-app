@@ -5,13 +5,13 @@ import slugify from 'slugify'
 import Link from 'next/link'
 import MovieCard from "./MovieCard";
 
-const SimilarMovies = ({ id }) => {
+const SimilarMovies = ({ id, type, pagePrefix }) => {
   const [similar, setSimilar] = useState([])
   const dynamicRoute = useRouter().asPath
 
   useEffect(() => {
     const getSimilar = async (id) => {
-      const similarMovies = await getSimilarMovies(id)
+      const similarMovies = await getSimilarMovies(id, type)
 
       setSimilar(similarMovies.results.slice(0, 3))
     }

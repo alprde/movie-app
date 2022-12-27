@@ -1,7 +1,7 @@
 import React from 'react';
 import MovieCard from "./MovieCard";
 
-const MovieList = ({movies, title}) => {
+const MovieList = ({movies, title, pagePrefix}) => {
     return (
         <>
             <div className="flex items-center justify-between">
@@ -28,7 +28,7 @@ const MovieList = ({movies, title}) => {
 
             <div className="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5 ">
                 {movies.map((movie) => (
-                    <MovieCard movie={movie} key={movie.id} />
+                    <MovieCard movie={movie} key={movie.id} pagePrefix={pagePrefix} />
                 ))}
             </div>
         </>

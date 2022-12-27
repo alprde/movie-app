@@ -4,15 +4,17 @@ import slugify from 'slugify'
 import { getMovie } from '../functions/getMovies'
 import { useRouter } from 'next/router'
 
-const Banner = ({ movieID }) => {
+const Banner = ({ movieID, type, pagePrefix }) => {
   const dynamicRoute = useRouter().asPath
   const [movie, setMovie] = useState({})
+  const [movieName, setMovieName] = useState("")
   const [genres, setGenres] = useState([])
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const data = await getMovie(movieID)
+      const data = await getMovie(movieID, type)
       setMovie(data)
+      setMovieName('title' in data ? data.title : data.name)
       setGenres(data.genres)
     }
 
@@ -52,13 +54,16 @@ const Banner = ({ movieID }) => {
 
       <div className="bg-gradient-to-r from-black/30 to-transparent -mx-7 -mb-6 px-7 pb-6 pt-2">
         <Link
-          href={`/movies/${slugify(movie.title + ' ' + movie.id, {
-            strict: true,
-            lower: true
-          })}`}
+          href={`/${pagePrefix}/${slugify(
+            movieName + ' ' + movie.id,
+            {
+              strict: true,
+              lower: true
+            }
+          )}`}
           className="uppercase text-3xl font-semibold drop-shadow-lg "
         >
-          {movie.title}
+          {movieName}
         </Link>
         <div className="text-xs text-gray-200 mt-2">
           {

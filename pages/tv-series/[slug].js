@@ -9,12 +9,12 @@ const MovieDetail = ({ movie }) => {
   return (
     <Layout title={movie.title} description={movie.overview}>
       <section>
-        <Banner movieID={movie.id} type="movie" pagePrefix={'movies'} />
+        <Banner movieID={movie.id} type={'tv'} pagePrefix={'tv-series'} />
       </section>
 
-      <Cast id={movie.id} type={'movie'} />
+      <Cast id={movie.id} type={'tv'} />
 
-      <SimilarMovies id={movie.id} type={'movie'} pagePrefix={'movies'} />
+      <SimilarMovies id={movie.id} type={'tv'} pagePrefix={'tv-series'} />
     </Layout>
   )
 }
@@ -51,7 +51,7 @@ const MovieDetail = ({ movie }) => {
 
 export const getServerSideProps = async ({ params }) => {
   const id = params.slug.split('-').slice(-1)[0]
-  const movie = await getMovie(id, 'movie')
+  const movie = await getMovie(id, 'tv')
 
   return {
     props: {

@@ -11,7 +11,7 @@ export default function Movies(props) {
   const loadMore = async () => {
     const newPage = movies.page + 1
 
-    const response = await getMovies(newPage)
+    const response = await getMovies(newPage, 'tv')
 
     const newMovies = [...movies.results, ...response.results]
 
@@ -26,11 +26,11 @@ export default function Movies(props) {
   return (
     <Layout title={'Movies'} description={'Movie List'}>
       <section>
-        <Banner movieID={movies.results[0].id} pagePrefix={'movies'} />
+        <Banner movieID={movies.results[0].id} type="tv" pagePrefix={'tv-series'} />
       </section>
 
       <section className="mt-9">
-        <MovieList title="Movies" movies={movies.results.slice(1, -1)} pagePrefix={'movies'} />
+        <MovieList title="Movies" movies={movies.results.slice(1, -1)} pagePrefix={'tv-series'} />
       </section>
 
       <section>
@@ -51,7 +51,7 @@ export default function Movies(props) {
 }
 
 export const getStaticProps = async () => {
-  const movies = await getMovies()
+  const movies = await getMovies(1, 'tv')
 
   return {
     props: {

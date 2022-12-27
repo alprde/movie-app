@@ -5,13 +5,13 @@ const Navigation = () => {
   return (
     <section>
       <nav className="flex space-x-6 text-gray-400 font-medium">
-        <a href="#" className="hover:text-gray-700 dark:hover:text-white">
+        <a href="/tv-series" className="hover:text-gray-700 dark:hover:text-white">
           TV Series
         </a>
-        <Link href="/" className="text-gray-700 dark:text-white font-semibold">
+        <Link href="/movies" className="text-gray-700 dark:text-white font-semibold">
           Movies
         </Link>
-        <a href="#" className="hover:text-gray-700 dark:hover:text-white ">
+        <a href="/animes" className="hover:text-gray-700 dark:hover:text-white ">
           Animes
         </a>
       </nav>

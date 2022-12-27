@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { getMovieCredits } from '../functions/getMovies'
 import { useRouter } from 'next/router'
 
-const Cast = ({ id }) => {
+const Cast = ({ id, type }) => {
   const [cast, setCast] = useState([])
   const dynamicRoute = useRouter().asPath
 
   useEffect(() => {
     const getCredits = async (id) => {
-      const credits = await getMovieCredits(id)
+      const credits = await getMovieCredits(id, type)
 
       setCast(credits.cast.slice(0, 4))
     }

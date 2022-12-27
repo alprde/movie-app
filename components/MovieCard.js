@@ -2,7 +2,9 @@ import React from 'react'
 import Link from 'next/link'
 import slugify from 'slugify'
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, pagePrefix }) => {
+  const movieName = 'title' in movie ? movie.title : movie.name
+
   return (
     <>
       <div
@@ -10,20 +12,20 @@ const MovieCard = ({ movie }) => {
         key={movie.id}
       >
         <img
-          src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_URL}/w500_and_h282_face/${movie.backdrop_path}`}
+          src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_URL}/w500/${movie.poster_path}`}
           className=" h-4/5 object-cover w-full  "
           alt=""
         />
         <div className="w-full h-1/5 bg-white dark:bg-zinc-800 dark:text-white px-3 flex items-center justify-between border-t-2 border-t-red-600">
           <Link
-            href={`/movies/${slugify(movie.title + ' ' + movie.id, {
+            href={`/${pagePrefix}/${slugify(movieName + ' ' + movie.id, {
               strict: true,
               lower: true
             })}`}
             className="capitalize font-medium truncate"
           >
             <span>
-              {movie.title}
+              {movieName}
             </span>
           </Link>
 
