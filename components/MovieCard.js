@@ -11,11 +11,19 @@ const MovieCard = ({ movie, pagePrefix }) => {
         className="flex flex-col rounded-xl overflow-hidden aspect-auto border dark:border-zinc-600"
         key={movie.id}
       >
-        <img
-          src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_URL}/w500/${movie.poster_path}`}
-          className=" h-4/5 object-cover w-full  "
-          alt=""
-        />
+        <Link
+          href={`/${pagePrefix}/${slugify(movieName + ' ' + movie.id, {
+            strict: true,
+            lower: true
+          })}`}
+          className="h-4/5"
+        >
+          <img
+            src={`${process.env.NEXT_PUBLIC_TMDB_IMAGE_URL}/w500/${movie.poster_path}`}
+            className="object-cover w-full  "
+            alt=""
+          />
+        </Link>
         <div className="w-full h-1/5 bg-white dark:bg-zinc-800 dark:text-white px-3 flex items-center justify-between border-t-2 border-t-red-600">
           <Link
             href={`/${pagePrefix}/${slugify(movieName + ' ' + movie.id, {
@@ -24,9 +32,7 @@ const MovieCard = ({ movie, pagePrefix }) => {
             })}`}
             className="capitalize font-medium truncate"
           >
-            <span>
-              {movieName}
-            </span>
+            <span>{movieName}</span>
           </Link>
 
           <div className="flex space-x-2 items-center text-xs">
