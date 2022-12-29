@@ -3,59 +3,38 @@ import { useState } from 'react'
 import { getMovies } from '../../functions/getMovies'
 import Banner from '../../components/Banner'
 import MovieList from '../../components/MovieList'
+import {storeWrapper} from "../../stores";
+import {setMoviesHandle} from "../../utils";
+import LoadMoreButton from "../../components/LoadMoreButton";
 
 export default function Movies(props) {
-  const [movies, setMovies] = useState(props.movies)
-  const [loadMoreStatus, setLoadMoreStatus] = useState(false)
-
-  const loadMore = async () => {
-    const newPage = movies.page + 1
-
-    const response = await getMovies(newPage, 'tv')
-
-    const newMovies = [...movies.results, ...response.results]
-
-    response.page = newPage
-    response.results = newMovies
-
-    setMovies(response)
-
-    setLoadMoreStatus(false)
-  }
-
   return (
     <Layout title={'Movies'} description={'Movie List'}>
       <section>
-        <Banner movieID={movies.results[0].id} type="tv" pagePrefix={'tv-series'} />
+        <Banner type="tv" pagePrefix={'tv-series'} />
       </section>
 
       <section className="mt-9">
-        <MovieList title="Movies" movies={movies.results.slice(1, -1)} pagePrefix={'tv-series'} />
+        <MovieList title="Movies" pagePrefix={'tv-series'} />
       </section>
 
       <section>
-        {loadMoreStatus === false && (
-          <button
-            className="px-5 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg text-center font-medium block text-white w-full my-5"
-            onClick={() => {
-              setLoadMoreStatus(true)
-              loadMore()
-            }}
-          >
-            Load more
-          </button>
-        )}
+        <LoadMoreButton/>
       </section>
     </Layout>
   )
 }
 
-export const getStaticProps = async () => {
-  const movies = await getMovies(1, 'tv')
+export const getStaticProps = storeWrapper.getStaticProps(
+    (store) => async () => {
+        const movies = await getMovies(1, 'tv')
 
-  return {
-    props: {
-      movies
+        await setMoviesHandle(movies)
+
+        return {
+            props: {
+                movies
+            }
+        }
     }
-  }
-}
+)
