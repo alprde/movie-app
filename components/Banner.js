@@ -3,9 +3,12 @@ import Link from 'next/link'
 import slugify from 'slugify'
 import { getMovie } from '../functions/getMovies'
 import { useRouter } from 'next/router'
+import {useSelector} from "react-redux";
 
-const Banner = ({ movieID, type, pagePrefix }) => {
+const Banner = ({movieID, type, pagePrefix }) => {
   const dynamicRoute = useRouter().asPath
+  const {movies} = useSelector(state => state.movies)
+  movieID = movieID ? movieID : movies.results[0].id
   const [movie, setMovie] = useState({})
   const [movieName, setMovieName] = useState("")
   const [genres, setGenres] = useState([])

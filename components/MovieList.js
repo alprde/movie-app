@@ -1,7 +1,10 @@
 import React from 'react';
 import MovieCard from "./MovieCard";
+import {useSelector} from "react-redux";
 
-const MovieList = ({movies, title, pagePrefix}) => {
+const MovieList = ({title, pagePrefix}) => {
+    const {movies} = useSelector(state => state.movies)
+
     return (
         <>
             <div className="flex items-center justify-between">
@@ -27,7 +30,7 @@ const MovieList = ({movies, title, pagePrefix}) => {
             </div>
 
             <div className="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5 ">
-                {movies.map((movie) => (
+                {movies.results.slice(1, -1).map((movie) => (
                     <MovieCard movie={movie} key={movie.id} pagePrefix={pagePrefix} />
                 ))}
             </div>
