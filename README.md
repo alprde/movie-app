@@ -14,6 +14,7 @@ TODOS:
 - [ ] Rate movies
 - [ ] Add friend
 - [ ] Show the movies that your friends added to favorites
+- [ ] Add lang selector
 - [ ] Create an api
 - [ ] Build a mobile app with react-native and flutter
 
