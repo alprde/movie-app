@@ -19,6 +19,10 @@ const LoadMoreButton = () => {
     setLoadMoreStatus(false)
   }
 
+  if((!('results' in movies) || movies.results.length <= 0) || movies.total_pages <= movies.page){
+    return <></>
+  }
+
   return (
     <>
       {loadMoreStatus === false && (

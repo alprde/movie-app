@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 const Banner = ({movieID, type, pagePrefix }) => {
   const dynamicRoute = useRouter().asPath
   const {movies} = useSelector(state => state.movies)
-  movieID = movieID ? movieID : movies.results[0].id
+  movieID = movieID ? movieID : movies.results[0] ? movies.results[0].id : 0
   const [movie, setMovie] = useState({})
   const [movieName, setMovieName] = useState("")
   const [genres, setGenres] = useState([])
@@ -23,6 +23,10 @@ const Banner = ({movieID, type, pagePrefix }) => {
 
     fetchMovie()
   }, [dynamicRoute])
+
+  if(!('results' in movies) || movies.results.length <= 0){
+    return <></>
+  }
 
   return (
     <div
