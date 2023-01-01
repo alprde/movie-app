@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { getMovies } from '../functions/getMovies'
+import {getMovies, searchMovies} from '../functions/getMovies'
 import { loadMoreMovieHandle } from '../utils'
 import { useSelector } from 'react-redux'
 
 const LoadMoreButton = () => {
-  const { movies } = useSelector((state) => state.movies)
+  const { movies, searchStatus, searchText } = useSelector((state) => state.movies)
   const [loadMoreStatus, setLoadMoreStatus] = useState(false)
 
   const loadMore = async () => {
@@ -12,7 +12,7 @@ const LoadMoreButton = () => {
 
     const newPage = movies.page + 1
 
-    const response = await getMovies(newPage)
+    const response = !searchStatus ? await getMovies(newPage) : await searchMovies(searchText, newPage)
 
     loadMoreMovieHandle(response)
 

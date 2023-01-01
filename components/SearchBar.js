@@ -1,14 +1,15 @@
 import React from 'react'
-import { getMovies, searchMovie } from '../functions/getMovies'
-import { setMoviesHandle } from '../utils'
+import { getMovies, searchMovies } from '../functions/getMovies'
+import {setMoviesHandle, setSearchTextHandle} from '../utils'
 
 const SearchBar = () => {
   const search = async (e) => {
     const data =
-      e.target.value != ''
-        ? await searchMovie(e.target.value)
+      e.target.value !== ''
+        ? await searchMovies(e.target.value)
         : await getMovies()
 
+    setSearchTextHandle(e.target.value)
     setMoviesHandle(data)
   }
 

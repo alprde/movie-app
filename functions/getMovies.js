@@ -44,8 +44,8 @@ export const getSimilarMovies = async (id, type = 'movie') => {
       })
 }
 
-export const searchMovie = async (query, type = 'movie') => {
-    return fetch(`${baseURL}/search/movie?query=${query}&api_key=${apiKey}`)
+export const searchMovies = async (query, page = 1) => {
+    return fetch(`${baseURL}/search/multi?query=${query}&page=${page}&api_key=${apiKey}`)
         .then((r) => r.json())
         .then((data) => {
             return data

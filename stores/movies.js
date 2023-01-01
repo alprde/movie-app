@@ -1,8 +1,10 @@
-import {createSlice, current} from '@reduxjs/toolkit'
-import {HYDRATE} from "next-redux-wrapper";
+import { createSlice, current } from '@reduxjs/toolkit'
+import { HYDRATE } from 'next-redux-wrapper'
 
 const initialState = {
-  movies: {}
+  movies: {},
+  searchStatus: false,
+  searchText: ''
 }
 
 const movies = createSlice({
@@ -20,17 +22,26 @@ const movies = createSlice({
       action.payload.results = newMovies
 
       state.movies = action.payload
+    },
+    setSearchText: (state, action) => {
+      state.searchText = action.payload
+
+      if (state.searchText === '') {
+        state.searchStatus = false
+      } else {
+        state.searchStatus = true
+      }
     }
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
-      return state = {
+      return (state = {
         ...state,
         ...action.payload.movies
-      }
+      })
     }
   }
 })
 
-export const { setMovies, loadMoreMovie } = movies.actions
+export const { setMovies, loadMoreMovie, setSearchText } = movies.actions
 export default movies.reducer
