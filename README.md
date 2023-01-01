@@ -7,6 +7,7 @@ TODOS:
 - [x] Fetch movies from TMDB API
 - [x] Create movie detail page
 - [x] Add redux
+- [x] Search movies
 - [ ] Filter movies
 - [ ] Sidebar is not showing on mobile
 - [ ] User auth
