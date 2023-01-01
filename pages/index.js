@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { getMovies } from '../functions/getMovies'
 import Banner from '../components/Banner'
 import MovieList from '../components/MovieList'
-import { loadMoreMovieHandle, setMoviesHandle } from '../utils'
+import { setMoviesHandle } from '../utils'
 import { storeWrapper } from '../stores'
 import LoadMoreButton from '../components/LoadMoreButton'
 
@@ -11,11 +11,11 @@ export default function Home(props) {
   return (
     <Layout title={'Movies'} description={'Movie List'}>
       <section>
-        <Banner />
+        <Banner pagePrefix={'movies'} />
       </section>
 
       <section className="mt-9">
-        <MovieList title="Movies" />
+        <MovieList title="Movies" pagePrefix={'movies'} />
       </section>
 
       <section>
