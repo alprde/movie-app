@@ -4,6 +4,7 @@ import Layout from '../../components/Layout'
 import Cast from '../../components/Cast'
 import SimilarMovies from '../../components/SimilarMovies'
 import Banner from '../../components/Banner'
+import Overview from '../../components/Overview'
 
 const MovieDetail = ({ movie }) => {
   return (
@@ -13,6 +14,8 @@ const MovieDetail = ({ movie }) => {
       </section>
 
       <Cast id={movie.id} type={'movie'} />
+
+      <Overview overview={movie.overview} />
 
       <SimilarMovies id={movie.id} type={'movie'} pagePrefix={'movies'} />
     </Layout>
