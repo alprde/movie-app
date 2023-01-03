@@ -9,7 +9,7 @@ const Rightbar = () => {
 
       <PopularMovies />
 
-      <div className="mt-10">
+      <div className="mt-10 hidden">
         <span className="font-semibold text-gray-700 dark:text-white">
           Favorites
         </span>
