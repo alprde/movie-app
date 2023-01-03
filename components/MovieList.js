@@ -40,6 +40,10 @@ const MovieList = ({ title, pagePrefix }) => {
       <div className="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5 ">
         {movies.results.slice(1, -1).map((movie) => {
             if('media_type' in movie){
+                if(movie.media_type === 'person'){
+                    return false;
+                }
+
                 switch (movie.media_type) {
                     case 'movie':
                         pagePrefix = 'movies';

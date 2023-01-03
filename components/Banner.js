@@ -24,7 +24,8 @@ const Banner = ({movieID, type, pagePrefix }) => {
     fetchMovie()
   }, [dynamicRoute, movies])
 
-  if((!('results' in movies) || movies.results.length <= 0) || !('id' in movie)){
+  // (!('results' in movies) || movies.results.length <= 0) ||
+  if(!('id' in movie)){
     return <></>
   }
 
