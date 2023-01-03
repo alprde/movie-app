@@ -2,6 +2,12 @@
 
 <a href="movieapp.amddns.com" target="_blank">Demo</a>
 
+Used Technologies
+
+- Next JS
+- Redux
+- TMDB API
+
 TODOS:
 
 - [x] Fetch movies from TMDB API
