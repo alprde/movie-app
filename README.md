@@ -7,6 +7,7 @@ Used Technologies
 - Next JS
 - Redux
 - TMDB API
+- TailwindCSS
 
 TODOS:
 
